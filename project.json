@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Personal Portfolio Website",
+        "description": "A personal website that introduces me, my skills, and my projects.",
+        "technologies": ["HTML", "CSS", "JavaScript"],
+        "role": "Designed and developed the website.",
+        "screenshot": "",
+        "github": "https://github.com/zaratecelver55-sys"
+    },
+    {
+        "title": "Web Development Practice",
+        "description": "A practice project for learning website structure and design.",
+        "technologies": ["HTML", "CSS"],
+        "role": "Created and styled web pages.",
+        "screenshot": "",
+        "github": "https://github.com/zaratecelver55-sys"
+    }
+]
