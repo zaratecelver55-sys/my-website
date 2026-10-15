@@ -41,7 +41,7 @@ async function loadProjects() {
                 card.appendChild(image);
             }
 
-            if (project.github) {
+            if (project.github && project.title !== "Web Development Practice") {
                 const link = document.createElement("a");
                 link.href = project.github;
                 link.textContent = "View on GitHub";
