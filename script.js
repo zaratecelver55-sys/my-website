@@ -108,7 +108,7 @@ if (!container) return;
 
             item.appendChild(link);
             list.appendChild(item);
-        }};
+        });
 
         container.appendChild(list);
     
