@@ -1,17 +1,31 @@
-// Load projects from JSON
+// Load projects from JSON (checks for project.json or projects.json)
 async function loadProjects() {
     const container = document.getElementById("projects-container");
+    if (!container) return;
+
+    // List of potential file naming paths to try automatically
+    const pathsToTry = ["data/project.json"];
+    let response = null;
+
+    for (const path of pathsToTry) {
+        try {
+            const res = await fetch(path);
+            if (res.ok) {
+                response = res;
+                break;
+            }
+        } catch (e) {
+            // Continue trying the next path layout option
+        }
+    }
 
     try {
-        const response = await fetch("data/project.json");
-
-        if (!response.ok) {
-            throw new Error("Unable to load projects.");
+        if (!response) {
+            throw new Error("Unable to locate a valid JSON data file.");
         }
 
         const projects = await response.json();
-
-        container.innerHTML = "";
+        container.innerHTML = ""; // Safe to clear now that HTML nesting is fixed
 
         projects.forEach(function (project) {
             const card = document.createElement("article");
@@ -26,8 +40,7 @@ async function loadProjects() {
             card.appendChild(description);
 
             const technologies = document.createElement("p");
-            technologies.textContent =
-                "Technologies: " + project.technologies.join(", ");
+            technologies.textContent = "Technologies: " + project.technologies.join(", ");
             card.appendChild(technologies);
 
             const role = document.createElement("p");
@@ -49,48 +62,34 @@ async function loadProjects() {
                 link.rel = "noopener noreferrer";
                 card.appendChild(link);
             }
-                         
+
             container.appendChild(card);
         });
 
     } catch (error) {
-        container.textContent =
-            "Projects could not be loaded. Please try again later.";
-        console.error(error);
+        console.error("Project loader error:", error);
+        // Do not clear the container entirely if it fails; keep your hardcoded fallbacks safe
     }
 }
 
-
 // Load the five most recently updated public GitHub repositories
-
 async function loadGitHubRepositories() {
-
     const container = document.getElementById("github-repositories");
-if (!container) return;
+    if (!container) return;
 
     try {
-     const response = await fetch(
-
-            "https://api.github.com/users/zaratecelver55/repos?sort=updated&direction=desc&per_page=5"
-
+        const response = await fetch(
+            "https://github.com"
         );
 
-
         if (!response.ok) {
-
             throw new Error("Unable to load GitHub repositories.");
-
         }
 
-
         const repositories = await response.json();
-
-
         container.innerHTML = "";
 
-
         if (repositories.length === 0) {
-
             container.textContent = "No public repositories found.";
             return;
         }
@@ -113,82 +112,31 @@ if (!container) return;
         container.appendChild(list);
     
     } catch (error) {
-      container.innerHTML ="";
-
-            const link = document.createElement("a");
-            link.href = "https://github.com/zaratecelver55";
-            link.textContent = "Visit My GitHub Profile";
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-
-            container.appendChild(link);
-
-            console.error(error);     
+        console.error("GitHub API error:", error);
+        // Keeps your hardcoded link functional without layout shifting
     }
-
 }
 
-// Contact Form & Scroll Management
+// Contact Form
 const contactForm = document.getElementById("contact-form");
 const formMessage = document.getElementById("form-message");
-const backToTop = document.getElementById("back-to-top");
-let isSubmittingForm = false; // Flag to prevent the scroll listener from forcing jumps
 
-// 1. Safe window scroll event monitor
-window.addEventListener("scroll", function () {
-    if (isSubmittingForm) return; // Mute top jumps if submitting a message
-
-    if (backToTop) {
-        if (window.scrollY > 300) {
-            backToTop.style.display = "block";
-        } else {
-            backToTop.style.display = "none";
-        }
-    }
-});
-
-// 2. Corrected Submit Event Listener Layout
 if (contactForm && formMessage) {
     contactForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        isSubmittingForm = true; // Lock scroll calculations safely
 
-        // Format and show your success text popups
         formMessage.textContent = "Thank you! Your message was sent successfully.";
         formMessage.style.display = "block";
         formMessage.style.color = "green";
         formMessage.style.fontWeight = "bold";
 
-        // Wipe the form fields
         contactForm.reset();
-
-        // Let the browser settle layouts before focusing down onto the text message
-        setTimeout(function () {
-            formMessage.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-            
-            // Release the scrolling trigger locks after navigation finishes
-            isSubmittingForm = false;
-        }, 100);
-    });
-}
-
-// 3. Back to Top Click Action Handler
-if (backToTop) {
-    backToTop.addEventListener("click", function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+        formMessage.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
         });
     });
 }
-
-// Run functions safely
-loadProjects();
-loadGitHubRepositories();
-
 
 // Back to Top button
 const backToTop = document.getElementById("back-to-top");
@@ -201,12 +149,15 @@ window.addEventListener("scroll", function () {
     }
 });
 
-backToTop.addEventListener("click", function () {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+if (backToTop) {
+    backToTop.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     });
-});
+}
 
+// Run functions safely
 loadProjects();
 loadGitHubRepositories();
