@@ -150,7 +150,8 @@ if (contactForm && formMessage) {
             behavior: "smooth",
             block: "center"
         });
-    });
+    }, 50);
+ });
 }
 
 // Back to Top button
