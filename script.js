@@ -66,13 +66,12 @@ async function loadProjects() {
 async function loadGitHubRepositories() {
 
     const container = document.getElementById("github-repositories");
-
+if (!container) return;
 
     try {
+     const response = await fetch(
 
-        const response = await fetch(
-
-            "https://api.github.com/users/zaratecelver55-sys/repos?sort=updated&direction=desc&per_page=5"
+            "https://api.github.com/users/zaratecelver55/repos?sort=updated&direction=desc&per_page=5"
 
         );
 
