@@ -110,7 +110,7 @@ if (!container) return;
 
             link.href = repository.html_url;
 
-            link.textContent = repository.name;
+            link.textContent = "Visit Repository";
 
             link.target = "_blank";
 
