@@ -49,7 +49,8 @@ async function loadProjects() {
                 link.rel = "noopener noreferrer";
                 card.appendChild(link);
             }
-
+        }
+                         
             container.appendChild(card);
         });
 
