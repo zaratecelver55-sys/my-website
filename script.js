@@ -128,29 +128,67 @@ if (!container) return;
 
 }
 
-// Contact Form
+// Contact Form & Scroll Management
 const contactForm = document.getElementById("contact-form");
 const formMessage = document.getElementById("form-message");
+const backToTop = document.getElementById("back-to-top");
+let isSubmittingForm = false; // Flag to prevent the scroll listener from forcing jumps
 
+// 1. Safe window scroll event monitor
+window.addEventListener("scroll", function () {
+    if (isSubmittingForm) return; // Mute top jumps if submitting a message
+
+    if (backToTop) {
+        if (window.scrollY > 300) {
+            backToTop.style.display = "block";
+        } else {
+            backToTop.style.display = "none";
+        }
+    }
+});
+
+// 2. Corrected Submit Event Listener Layout
 if (contactForm && formMessage) {
     contactForm.addEventListener("submit", function (event) {
         event.preventDefault();
+        isSubmittingForm = true; // Lock scroll calculations safely
 
-        formMessage.textContent =
-            "Thank you! Your message was sent successfully.";
-
+        // Format and show your success text popups
+        formMessage.textContent = "Thank you! Your message was sent successfully.";
         formMessage.style.display = "block";
         formMessage.style.color = "green";
         formMessage.style.fontWeight = "bold";
 
+        // Wipe the form fields
         contactForm.reset();
 
-        formMessage.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
- });
+        // Let the browser settle layouts before focusing down onto the text message
+        setTimeout(function () {
+            formMessage.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+            
+            // Release the scrolling trigger locks after navigation finishes
+            isSubmittingForm = false;
+        }, 100);
+    });
 }
+
+// 3. Back to Top Click Action Handler
+if (backToTop) {
+    backToTop.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
+
+// Run functions safely
+loadProjects();
+loadGitHubRepositories();
+
 
 // Back to Top button
 const backToTop = document.getElementById("back-to-top");
