@@ -3,7 +3,7 @@ async function loadProjects() {
     const container = document.getElementById("projects-container");
 
     try {
-        const response = await fetch("project.json");
+        const response = await fetch("data/project.json");
 
         if (!response.ok) {
             throw new Error("Unable to load projects.");
