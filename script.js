@@ -149,7 +149,6 @@ if (contactForm && formMessage) {
             behavior: "smooth",
             block: "center"
         });
-    }, 50);
  });
 }
 
