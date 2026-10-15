@@ -92,59 +92,38 @@ if (!container) return;
         if (repositories.length === 0) {
 
             container.textContent = "No public repositories found.";
-
             return;
-
         }
-
 
         const list = document.createElement("ul");
 
-
         repositories.forEach(function (repository) {
-
             const item = document.createElement("li");
-
-
             const link = document.createElement("a");
 
             link.href = repository.html_url;
-
-            link.textContent = "Visit Repository";
-
+            link.textContent = repository.name;
             link.target = "_blank";
-
             link.rel = "noopener noreferrer";
 
-
             item.appendChild(link);
-
-
-            const language = document.createElement("span");
-
-            language.textContent =
-
-                " — " + (repository.language || "Language not specified");
-
-
-            item.appendChild(language);
-
             list.appendChild(item);
-
-        });
-
+        }};
 
         container.appendChild(list);
-
-
+    
     } catch (error) {
+      container.innerHTML ="";
 
-        container.textContent =
+            const link = document.createElement("a");
+            link.href = "https://github.com/zaratecelver55";
+            link.textContent = "Visit My GitHub Profile";
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
 
-            "GitHub repositories are currently unavailable.";
+            container.appendChild(link);
 
-        console.error(error);
-
+            console.error(error);     
     }
 
 }
