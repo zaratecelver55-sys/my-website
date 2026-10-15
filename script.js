@@ -128,19 +128,29 @@ if (!container) return;
 
 }
 
-// Contact form
+// Contact Form
 const contactForm = document.getElementById("contact-form");
 const formMessage = document.getElementById("form-message");
 
-contactForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+if (contactForm && formMessage) {
+    contactForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    formMessage.textContent =
-        "Thank you! Your message was sent successfully.";
+        formMessage.textContent =
+            "Thank you! Your message was sent successfully.";
 
-    contactForm.reset();
-});
+        formMessage.style.display = "block";
+        formMessage.style.color = "green";
+        formMessage.style.fontWeight = "bold";
 
+        contactForm.reset();
+
+        formMessage.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    });
+}
 
 // Back to Top button
 const backToTop = document.getElementById("back-to-top");
