@@ -163,73 +163,55 @@
     </div>
    </section>
 
-        
-        <!-- Contact -->
+<!-- Contact Section -->
         <section id="contact" class="section">
-
             <h2>Contact Me</h2>
 
             <p>
                 Email:
-                <a 
-                    href="mailto:zaratecelver@gmail.com">
-                    zaratecelver@gmail.com
-                </a>
+                <a href="mailto:zaratecelver@gmail.com">zaratecelver@gmail.com</a>
             </p>
 
             <p>
                 GitHub:
-                <a
-                    href="https://github.com/zaratecelver55"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Visit My GitHub
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                    ://github.com
                 </a>
             </p>
 
-            <p>
-                LinkedIn or other social link:
-                <a href="https://www.linkedin.com/" target="_blank"
-                   rel="noopener noreferrer">
-                    LinkedIn
-                </a>
-            </p>
+            <!-- THIS FORM IS WHAT LINK-LOCKS TO YOUR JAVASCRIPT CODE -->
+            <form id="contact-form" style="margin-top: 20px; display: flex; flex-direction: column; max-width: 400px; gap: 10px;">
+                <div>
+                    <label for="name" style="display: block; font-weight: bold; margin-bottom: 5px;">Name:</label>
+                    <input type="text" id="name" required placeholder="Your Name" style="width: 100%; padding: 8px;">
+                </div>
+                
+                <div>
+                    <label for="email-input" style="display: block; font-weight: bold; margin-bottom: 5px;">Email Address:</label>
+                    <input type="email" id="email-input" required placeholder="Your Email" style="width: 100%; padding: 8px;">
+                </div>
 
-            <form id="contact-form">
+                <div>
+                    <label for="message" style="display: block; font-weight: bold; margin-bottom: 5px;">Message:</label>
+                    <textarea id="message" required placeholder="Type your message here..." style="width: 100%; padding: 8px; min-height: 100px;"></textarea>
+                </div>
 
-                <label for="name">Name:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                >
-
-                <label for="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                >
-
-                <label for="message">Message:</label>
-                <textarea
-                    id="message"
-                    name="message"
-                    required
-                ></textarea>
-
-                <button type="submit">Send Message</button>
-
+                <button type="submit" class="button" style="padding: 10px; cursor: pointer; align-self: flex-start;">Send Message</button>
             </form>
 
-            <p id="form-message" aria-live="polite"></p>
-
+            <!-- THIS CONTAINER IS WHERE THE GREEN SUCCESS POPUP LOADS INTO -->
+            <p id="form-message" style="display: none; margin-top: 15px;"></p>
         </section>
 
     </main>
+
+    <!-- FLOATING BACK TO TOP BUTTON -->
+    <button id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 100; padding: 10px; cursor: pointer;">↑ Top</button>
+
+    <!-- Make sure your script line paths link out exactly like this -->
+    <script src="js/main.js"></script>
+</body>
+</html>
 
 
     <!-- Footer -->
