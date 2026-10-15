@@ -159,3 +159,6 @@ backToTop.addEventListener("click", function () {
         behavior: "smooth"
     });
 });
+
+loadProjects();
+loadGitHubRepositories();
